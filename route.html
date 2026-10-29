@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>水蒸気スポット周回ルート</title>
+<style>
+:root{--bg:#f7f7f5;--fg:#1d1d1f;--muted:#6b6b70;--card:#fff;--line:#e3e3e0;--accent:#1a73e8;--spot:#c2410c}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141416;--fg:#ececee;--muted:#9a9aa2;--card:#1d1d20;--line:#2e2e33;--accent:#8ab4f8;--spot:#fb923c}}
+:root[data-theme="dark"]{--bg:#141416;--fg:#ececee;--muted:#9a9aa2;--card:#1d1d20;--line:#2e2e33;--accent:#8ab4f8;--spot:#fb923c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 -apple-system,"Hiragino Sans",sans-serif}
+main{max-width:860px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:var(--muted);font-size:13px;margin-bottom:16px}
+.summary{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.stat b{display:block;font-size:20px}
+.stat span{color:var(--muted);font-size:12px}
+.btn{display:inline-block;background:#1a73e8;color:#fff;text-decoration:none;padding:10px 16px;border-radius:8px;font-weight:600;margin:4px 0 20px}
+.map{margin:0 0 20px}
+.map img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px}
+.map figcaption{color:var(--muted);font-size:12px;margin-top:4px}
+.leg{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:14px;overflow:hidden}
+.leg h2{font-size:16px;margin:0;padding:10px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.leg h2 small{color:var(--muted);font-weight:400}
+ol{margin:0;padding:0;list-style:none}
+li{display:flex;gap:12px;padding:9px 14px;border-bottom:1px solid var(--line)}
+li:last-child{border-bottom:0}
+.n{flex:0 0 24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;display:grid;place-items:center;font-weight:600}
+.d{margin-left:auto;color:var(--muted);white-space:nowrap;font-size:13px}
+li.approach{background:color-mix(in srgb,var(--spot) 10%,transparent)}
+.tag{font-size:11px;color:#fff;background:var(--spot);border-radius:4px;padding:1px 6px;margin-left:6px;white-space:nowrap}
+.spot{padding:10px 14px;font-weight:600;color:var(--spot)}
+.notes{color:var(--muted);font-size:13px}
+.notes li{display:list-item;border:0;padding:2px 0;margin-left:18px;list-style:disc}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+<h1>水蒸気スポット周回ルート（車）</h1>
+<div class="sub">デトロイト・ダウンタウン／Googleマップの経路（最速ルート、通常の交通量）を 2026-10-29 に確認</div>
+
+<div class="summary">
+  <div class="stat"><b>1.5 マイル</b><span>約 2.4 km</span></div>
+  <div class="stat"><b>約 7 分</b><span>Googleマップの所要時間</span></div>
+  <div class="stat"><b>2 か所</b><span>水蒸気スポット</span></div>
+</div>
+
+<a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;origin=42.328848,-83.044193&amp;destination=42.328848,-83.044193&amp;waypoints=42.331813,-83.048283&amp;travelmode=driving" target="_blank" rel="noopener">Googleマップでナビを開く</a>
+
+<figure class="map"><img src="route_map_google.png" alt="Googleマップの周回ルート（紫の線）"><figcaption>Googleマップのルート表示（2026-10-29 に撮影。風のアイコンは保存リスト「水蒸気」の地点）</figcaption></figure>
+
+<div class="leg">
+  <h2>区間1　スポット1 → スポット2 <small>4 分・0.9 マイル（約 1.4 km）</small></h2>
+  <div class="spot">出発：スポット1（E Jefferson Ave × Woodward 付近／Ford Underground Garage 前）</div>
+  <ol>
+    <li><span class="n">1</span>E Jefferson Ave に向かって進む<span class="d">85 ft（約 26 m）</span></li>
+    <li><span class="n">2</span>左折して E Jefferson Ave に入る<span class="d">0.2 マイル（約 320 m）</span></li>
+    <li><span class="n">3</span>左から 2 番目の車線で左手前方向に曲がり、そのまま E Jefferson Ave を進む<span class="d">0.3 マイル（約 480 m）</span></li>
+    <li class="approach"><span class="n">4</span><span>右車線で右折し、W Jefferson Srv Rd に入る<span class="tag">進入路</span></span><span class="d">207 ft（約 63 m）</span></li>
+    <li class="approach"><span class="n">5</span><span>右折して Griswold St に入る（北へ）。目的地は前方右側<span class="tag">進入路</span></span><span class="d">0.3 マイル（約 480 m）</span></li>
+  </ol>
+  <div class="spot">到着：スポット2（Griswold St）</div>
+</div>
+
+<div class="leg">
+  <h2>区間2　スポット2 → スポット1 <small>4 分・0.6 マイル（約 1.0 km）</small></h2>
+  <ol>
+    <li><span class="n">6</span>Michigan Ave に向かって進む<span class="d">0.2 マイル（約 320 m）</span></li>
+    <li><span class="n">7</span>左折して W Larned St に入る<span class="d">0.2 マイル（約 320 m）</span></li>
+    <li class="approach"><span class="n">8</span><span>右から 2 番目の車線で右折し、Randolph Street に入る（南へ）<span class="tag">進入路</span></span><span class="d">282 ft（約 86 m）</span></li>
+    <li class="approach"><span class="n">9</span><span>中央車線で右折し、E Jefferson Ave に入る（西へ）<span class="tag">進入路</span></span><span class="d">0.1 マイル（約 160 m）</span></li>
+    <li><span class="n">10</span>左折する<span class="d">49 ft（約 15 m）</span></li>
+  </ol>
+  <div class="spot">到着：スポット1（出発地点に戻る）</div>
+</div>
+
+<ul class="notes">
+  <li>経路と所要時間は Googleマップ（車、最速ルート、通常の交通量）の表示をそのまま写したもの。実際の交通状況や工事で変わる。</li>
+  <li>Googleマップは座標を近くの住所に合わせて表示する：スポット1 →「Ford Underground Garage, 30 E Jefferson Ave」、スポット2 →「48 Michigan Ave」。</li>
+  <li>スポット座標：スポット1 = 42.328848, -83.044193／スポット2 = 42.331813, -83.048283</li>
+  <li>オレンジの行が、動画で見せている各スポット直前の進入路。</li>
+</ul>
+</main>
+</body>
+</html>
