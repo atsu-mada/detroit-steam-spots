@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>デトロイト水蒸気スポット</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{--bg:#f7f7f5;--fg:#1d1d1f;--muted:#6b6b70;--card:#fff;--line:#e3e3e0;--accent:#2f6fdb;--spot:#c2410c}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141416;--fg:#ececee;--muted:#9a9aa2;--card:#1d1d20;--line:#2e2e33;--accent:#6ea0ff;--spot:#fb923c}}
+:root[data-theme="dark"]{--bg:#141416;--fg:#ececee;--muted:#9a9aa2;--card:#1d1d20;--line:#2e2e33;--accent:#6ea0ff;--spot:#fb923c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 -apple-system,"Hiragino Sans",sans-serif}
+main{max-width:1100px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:24px;margin:0 0 4px} h2{font-size:19px;margin:36px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.muted,.sub{color:var(--muted);font-size:13px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+nav a{font-size:13px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--fg);text-decoration:none;background:var(--card)}
+#map{height:460px;border-radius:10px;border:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.card h3{font-size:15px;margin:0;padding:10px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h3 small{color:var(--muted);font-weight:400;margin-left:auto}
+.badge{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--spot);color:#fff;font-size:12px}
+.card img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.meta{font-size:12px;color:var(--muted);padding:6px 12px}
+.members{list-style:none;margin:0;padding:4px 12px 10px;font-size:13px}
+.members li{padding:3px 0;border-top:1px dashed var(--line)}
+.members span{display:block;color:var(--muted);font-size:12px}
+.nophoto{padding:30px;text-align:center;color:var(--muted)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+video,.two img{width:100%;border-radius:10px;border:1px solid var(--line);display:block;background:#000}
+figure{margin:0} figcaption{font-size:13px;color:var(--muted);margin-top:4px}
+.btn{display:inline-block;background:#1a73e8;color:#fff;text-decoration:none;padding:9px 14px;border-radius:8px;font-weight:600;margin:4px 8px 4px 0}
+.pin{width:22px;height:22px;border-radius:50%;background:var(--spot);color:#fff;font:600 11px/22px sans-serif;text-align:center;border:2px solid #fff;box-shadow:0 1px 3px #0006}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--accent);border:1px solid #fff}
+a{color:var(--accent)}
+@media (max-width:600px){#map{height:360px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<h1>デトロイト水蒸気スポット</h1>
+<div class="sub">Googleマップのリスト「水蒸気」43 か所を、近いもの同士で 20 の代表地点にまとめ、各地点の写真を Mapillary から選んだ（2026-10-29 作成）</div>
+<nav><a href="index.html">← ルートのページ</a><a href="#map-sec">地図</a><a href="#photos">代表地点の写真</a><a href="#video">進入路の動画</a><a href="#sv">ストリートビュー</a><a href="#route">ルート</a><a href="#credits">クレジット</a></nav>
+
+<h2 id="map-sec">地図</h2>
+<div id="map"></div>
+<p class="muted">オレンジの番号＝代表地点（グループの中心にいちばん近いスポット）、青い点＝リストの全スポット。グループは直径 250 m 以内のスポットをまとめた。</p>
+
+<h2 id="photos">代表地点の写真（20 か所）</h2>
+<p class="muted">湯気は寒い時期に出やすいので、11〜3 月に撮られた写真を優先した。360° 写真は進行方向（スポットが後ろにある場合は後ろ向き）を切り出している。</p>
+<div class="grid">
+<article class="card" id="g1">
+  <h3><span class="badge">1</span>代表スポット #13<small>5 か所・半径 90 m</small></h3>
+  <a href="rep_photos/rep_01.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_01.jpg" alt="代表地点1の写真"></a><div class="meta">2017-12-09 撮影（冬）・代表スポット #13 から 4.5 m・前向きの写真・<a href="https://www.mapillary.com/app/?pKey=3749691998474152" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 lvl5）</div>
+  <ul class="members"><li><b>#3</b> 水蒸気スポット<span>42.329459, -83.045188</span></li><li><b>#13</b> 水蒸気スポット（2連続）<span>M-10</span></li><li><b>#14</b> 水蒸気スポット（真ん中車線）<span>M-10</span></li><li><b>#16</b> 水蒸気スポット<span>Downtown Detroit</span></li><li><b>#18</b> 水蒸気スポット（薄め、大きめ）<span>499-1 Griswold St</span></li></ul>
+</article><article class="card" id="g2">
+  <h3><span class="badge">2</span>代表スポット #27<small>5 か所・半径 109 m</small></h3>
+  <a href="rep_photos/rep_02.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_02.jpg" alt="代表地点2の写真"></a><div class="meta">2019-12-18 撮影（冬）・代表スポット #27 から 4.1 m・前向きの写真・<a href="https://www.mapillary.com/app/?pKey=135306975313135" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 swhite5482）</div>
+  <ul class="members"><li><b>#25</b> 水蒸気スポット（小さめ）（南から北へ）<span>4827 Brush St</span></li><li><b>#26</b> 水蒸気スポット（中央）<span>42.357769, -83.059085</span></li><li><b>#27</b> 水蒸気スポット（右折部分）<span>400-456 E Hancock St</span></li><li><b>#33</b> 水蒸気スポット<span>E Warren Ave</span></li><li><b>#35</b> 水蒸気スポット<span>42.357950, -83.058513</span></li></ul>
+</article><article class="card" id="g3">
+  <h3><span class="badge">3</span>代表スポット #20<small>4 か所・半径 129 m</small></h3>
+  <a href="rep_photos/rep_03.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_03.jpg" alt="代表地点3の写真"></a><div class="meta">2025-03-03 撮影（冬）・代表スポット #20 から 5.3 m・360°写真から切り出し・<a href="https://www.mapillary.com/app/?pKey=1168790367989303" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 codgis）</div>
+  <ul class="members"><li><b>#8</b> 水蒸気スポット<span>6564-6572 Cass Ave</span></li><li><b>#9</b> 水蒸気スポット<span>385-175 Lothrop St</span></li><li><b>#20</b> 水蒸気スポット（デカい）マンホール有り）<span>42.369755, -83.074941</span></li><li><b>#31</b> (メモなし)<span>Woodward &amp; Grand Blvd.</span></li></ul>
+</article><article class="card" id="g4">
+  <h3><span class="badge">4</span>代表スポット #37<small>3 か所・半径 121 m</small></h3>
+  <a href="rep_photos/rep_04.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_04.jpg" alt="代表地点4の写真"></a><div class="meta">2020-01-17 撮影（冬）・代表スポット #37 から 8.3 m・360°写真から切り出し・<a href="https://www.mapillary.com/app/?pKey=335618667976333" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 codgis）</div>
+  <ul class="members"><li><b>#6</b> 水蒸気スポット<span>3711-3707 Woodward Ave</span></li><li><b>#17</b> 水蒸気スポット（右車線）<span>E Alexandrine St</span></li><li><b>#37</b> 水蒸気スポット<span>3931-3923 Woodward Ave</span></li></ul>
+</article><article class="card" id="g5">
+  <h3><span class="badge">5</span>代表スポット #21<small>3 か所・半径 15 m</small></h3>
+  <a href="rep_photos/rep_05.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_05.jpg" alt="代表地点5の写真"></a><div class="meta">2023-03-15 撮影（冬）・代表スポット #21 から 1.4 m・360°写真から切り出し・<a href="https://www.mapillary.com/app/?pKey=582202610603992" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 codgis）</div>
+  <ul class="members"><li><b>#21</b> 水蒸気スポット（一時停止後）<span>Bates St</span></li><li><b>#22</b> 水蒸気スポット<span>725 Bates St</span></li><li><b>#23</b> 水蒸気スポット<span>127-101 Cadillac Square</span></li></ul>
+</article><article class="card" id="g6">
+  <h3><span class="badge">6</span>代表スポット #1<small>2 か所・半径 62 m</small></h3>
+  <a href="rep_photos/rep_06.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_06.jpg" alt="代表地点6の写真"></a><div class="meta">2019-12-21 撮影（冬）・代表スポット #1 から 4.0 m・前向きの写真・<a href="https://www.mapillary.com/app/?pKey=156751886395714" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 swhite5482）</div>
+  <ul class="members"><li><b>#1</b> (メモなし)<span>Griswold St</span></li><li><b>#5</b> 水蒸気スポット（めちゃ大量に出ている）<span>645 Griswold St</span></li></ul>
+</article><article class="card" id="g7">
+  <h3><span class="badge">7</span>代表スポット #30<small>2 か所・半径 105 m</small></h3>
+  <a href="rep_photos/rep_07.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_07.jpg" alt="代表地点7の写真"></a><div class="meta">2021-01-13 撮影（冬）・代表スポット #30 から 3.0 m・360°写真から切り出し・<a href="https://www.mapillary.com/app/?pKey=1231605440615962" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 codgis）</div>
+  <ul class="members"><li><b>#7</b> 水蒸気スポット<span>6423-6401 2nd Ave</span></li><li><b>#30</b> 水蒸気スポット<span>42.368868, -83.077421</span></li></ul>
+</article><article class="card" id="g8">
+  <h3><span class="badge">8</span>代表スポット #12<small>2 か所・半径 56 m</small></h3>
+  <a href="rep_photos/rep_08.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_08.jpg" alt="代表地点8の写真"></a><div class="meta">2020-03-17 撮影（冬）・代表スポット #12 から 0.6 m・360°写真から切り出し・<a href="https://www.mapillary.com/app/?pKey=375023520616077" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 codgis）</div>
+  <ul class="members"><li><b>#11</b> 水蒸気スポット<span>Detroit, MI 48226</span></li><li><b>#12</b> 水蒸気スポット（左折）<span>Randolph @ Monroe</span></li></ul>
+</article><article class="card" id="g9">
+  <h3><span class="badge">9</span>代表スポット #15<small>2 か所・半径 67 m</small></h3>
+  <a href="rep_photos/rep_09.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_09.jpg" alt="代表地点9の写真"></a><div class="meta">2024-12-17 撮影（冬）・代表スポット #15 から 1.0 m・360°写真から切り出し・<a href="https://www.mapillary.com/app/?pKey=606493755167719" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 codgis）</div>
+  <ul class="members"><li><b>#15</b> 水蒸気スポット（隣にチェムニーあり）<span>2062-2098 Witherell St</span></li><li><b>#43</b> (メモなし)<span>Witherell St</span></li></ul>
+</article><article class="card" id="g10">
+  <h3><span class="badge">10</span>代表スポット #29<small>2 か所・半径 43 m</small></h3>
+  <a href="rep_photos/rep_10.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_10.jpg" alt="代表地点10の写真"></a><div class="meta">2024-12-02 撮影（冬）・代表スポット #29 から 3.8 m・360°写真から切り出し・<a href="https://www.mapillary.com/app/?pKey=1326240008745475" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 codgis）</div>
+  <ul class="members"><li><b>#24</b> 水蒸気スポット<span>135-203 W Kirby St</span></li><li><b>#29</b> 水蒸気スポット（送路脇）<span>Cass &amp; Kirby</span></li></ul>
+</article><article class="card" id="g11">
+  <h3><span class="badge">11</span>代表スポット #32<small>2 か所・半径 107 m</small></h3>
+  <a href="rep_photos/rep_11.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_11.jpg" alt="代表地点11の写真"></a><div class="meta">2019-12-18 撮影（冬）・代表スポット #32 から 3.1 m・前向きの写真・<a href="https://www.mapillary.com/app/?pKey=473135117341121" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 swhite5482）</div>
+  <ul class="members"><li><b>#28</b> 水蒸気スポット<span>5100-5126 Cass Ave</span></li><li><b>#32</b> 水蒸気スポット<span>Gargaro Blvd</span></li></ul>
+</article><article class="card" id="g12">
+  <h3><span class="badge">12</span>代表スポット #41<small>2 か所・半径 67 m</small></h3>
+  <a href="rep_photos/rep_12.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_12.jpg" alt="代表地点12の写真"></a><div class="meta">2020-03-17 撮影（冬）・代表スポット #41 から 3.1 m・360°写真から切り出し・<a href="https://www.mapillary.com/app/?pKey=795175704516265" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 codgis）</div>
+  <ul class="members"><li><b>#38</b> 水蒸気スポット<span>Gratiot Ave</span></li><li><b>#41</b> 水蒸気スポット<span>Gratiot &amp; Madison</span></li></ul>
+</article><article class="card" id="g13">
+  <h3><span class="badge">13</span>代表スポット #39<small>2 か所・半径 48 m</small></h3>
+  <a href="rep_photos/rep_13.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_13.jpg" alt="代表地点13の写真"></a><div class="meta">2023-03-15 撮影（冬）・代表スポット #39 から 2.3 m・360°写真から切り出し・<a href="https://www.mapillary.com/app/?pKey=1222661951953877" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 codgis）</div>
+  <ul class="members"><li><b>#39</b> 水蒸気スポット<span>Gratiot Ave</span></li><li><b>#40</b> 水蒸気スポット<span>1407 Randolph Street</span></li></ul>
+</article><article class="card" id="g14">
+  <h3><span class="badge">14</span>代表スポット #2<small>1 か所・半径 0 m</small></h3>
+  <a href="rep_photos/rep_14.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_14.jpg" alt="代表地点14の写真"></a><div class="meta">2021-03-07 撮影（冬）・代表スポット #2 から 2.0 m・360°写真から切り出し・<a href="https://www.mapillary.com/app/?pKey=355430702590117" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 codgis）</div>
+  <ul class="members"><li><b>#2</b> 水蒸気スポット<span>Fort &amp; Third</span></li></ul>
+</article><article class="card" id="g15">
+  <h3><span class="badge">15</span>代表スポット #4<small>1 か所・半径 0 m</small></h3>
+  <a href="rep_photos/rep_15.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_15.jpg" alt="代表地点15の写真"></a><div class="meta">2023-03-15 撮影（冬）・代表スポット #4 から 2.7 m・360°写真から切り出し・<a href="https://www.mapillary.com/app/?pKey=1664418307348046" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 codgis）</div>
+  <ul class="members"><li><b>#4</b> 水蒸気スポット（横流れ）<span>499-401 Shelby St</span></li></ul>
+</article><article class="card" id="g16">
+  <h3><span class="badge">16</span>代表スポット #10<small>1 か所・半径 0 m</small></h3>
+  <a href="rep_photos/rep_16.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_16.jpg" alt="代表地点16の写真"></a><div class="meta">2017-11-13 撮影（冬）・代表スポット #10 から 11.9 m・前向きの写真・<a href="https://www.mapillary.com/app/?pKey=747387835943063" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 kevinmassey）</div>
+  <ul class="members"><li><b>#10</b> 水蒸気スポット（薄め）<span>399-201 E Forest Ave</span></li></ul>
+</article><article class="card" id="g17">
+  <h3><span class="badge">17</span>代表スポット #19<small>1 か所・半径 0 m</small></h3>
+  <a href="rep_photos/rep_17.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_17.jpg" alt="代表地点17の写真"></a><div class="meta">2019-12-18 撮影（冬）・代表スポット #19 から 2.5 m・前向きの写真・<a href="https://www.mapillary.com/app/?pKey=1838308983003134" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 swhite5482）</div>
+  <ul class="members"><li><b>#19</b> 水蒸気スポット候補（マンホール有り）（出てない？）<span>42.354833, -83.065999</span></li></ul>
+</article><article class="card" id="g18">
+  <h3><span class="badge">18</span>代表スポット #34<small>1 か所・半径 0 m</small></h3>
+  <a href="rep_photos/rep_18.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_18.jpg" alt="代表地点18の写真"></a><div class="meta">2022-11-07 撮影（冬）・代表スポット #34 から 2.6 m・360°写真から切り出し・<a href="https://www.mapillary.com/app/?pKey=1292457081566575" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 codgis）</div>
+  <ul class="members"><li><b>#34</b> 水蒸気スポット<span>4696-4798 St. Antoine St</span></li></ul>
+</article><article class="card" id="g19">
+  <h3><span class="badge">19</span>代表スポット #36<small>1 か所・半径 0 m</small></h3>
+  <a href="rep_photos/rep_19.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_19.jpg" alt="代表地点19の写真"></a><div class="meta">2020-01-17 撮影（冬）・代表スポット #36 から 34.9 m・360°写真から切り出し・<a href="https://www.mapillary.com/app/?pKey=1389487648085114" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 codgis）</div>
+  <ul class="members"><li><b>#36</b> 水蒸気スポット<span>4505-4401 Brush St</span></li></ul>
+</article><article class="card" id="g20">
+  <h3><span class="badge">20</span>代表スポット #42<small>1 か所・半径 0 m</small></h3>
+  <a href="rep_photos/rep_20.jpg" target="_blank"><img loading="lazy" src="rep_photos/rep_20.jpg" alt="代表地点20の写真"></a><div class="meta">2019-12-21 撮影（冬）・代表スポット #42 から 1.6 m・前向きの写真・<a href="https://www.mapillary.com/app/?pKey=799376557639331" target="_blank" rel="noopener">Mapillary で開く</a>（撮影者 swhite5482）</div>
+  <ul class="members"><li><b>#42</b> 消えてる<span>42°20&#x27;15.3&quot;N 83°03&#x27;12.6&quot;W</span></li></ul>
+</article>
+</div>
+
+<h2 id="video">進入路の動画</h2>
+<a class="btn" href="https://youtu.be/fTyhLYSZWsg" target="_blank" rel="noopener">YouTube で見る</a>
+<div class="two">
+  <figure><video controls preload="metadata" src="approach_spot1.mp4"></video><figcaption>スポット1（Jefferson Ave × Woodward 付近）：Randolph St（南へ）→ E Jefferson Ave（西へ）、2024-05-02 撮影の連続写真 34 枚</figcaption></figure>
+  <figure><video controls preload="metadata" src="approach_spot2.mp4"></video><figcaption>スポット2（Griswold St）：W Jefferson Srv Rd → Griswold St（北へ）、2019-06-16 撮影の連続写真 30 枚</figcaption></figure>
+</div>
+
+<h2 id="sv">各スポットに最も近いストリートビュー</h2>
+<div class="two">
+  <figure><img loading="lazy" src="streetview_spot1.png" alt="スポット1のストリートビュー"><figcaption>スポット1：約 6 m・南向き（2026 年 8 月撮影）© Google</figcaption></figure>
+  <figure><img loading="lazy" src="streetview_spot2.png" alt="スポット2のストリートビュー"><figcaption>スポット2：約 11 m・北北西向き（2026 年 8 月撮影）© Google</figcaption></figure>
+</div>
+
+<h2 id="route">ルート（スポット1 ⇄ スポット2）</h2>
+<a class="btn" href="route.html">ターン案内を開く</a><a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;origin=42.328848,-83.044193&amp;destination=42.328848,-83.044193&amp;waypoints=42.331813,-83.048283&amp;travelmode=driving" target="_blank" rel="noopener">Googleマップでナビ</a>
+<div class="two" style="margin-top:10px"><figure><img loading="lazy" src="route_map_google.png" alt="Googleマップのルート"><figcaption>車で約 7 分・1.5 マイル（Googleマップ）</figcaption></figure></div>
+
+<h2 id="credits">クレジット</h2>
+<ul class="muted">
+  <li>代表地点の写真・進入路の動画：Mapillary（<a href="https://www.mapillary.com" target="_blank" rel="noopener">mapillary.com</a>）CC BY-SA 4.0。撮影者：codgis, kevinmassey, lvl5, swhite5482（動画の撮影者は approach_credits.md）</li>
+  <li>ストリートビュー・ルート画面：© Google。個人の資料として保存したもの</li>
+  <li>地図：© OpenStreetMap contributors</li>
+</ul>
+</main>
+<script>
+const SPOTS=[{"n": 1, "memo": "(メモなし)", "lat": 42.331661, "lng": -83.04829}, {"n": 2, "memo": "水蒸気スポット", "lat": 42.327902, "lng": -83.05381}, {"n": 3, "memo": "水蒸気スポット", "lat": 42.329459, "lng": -83.045188}, {"n": 4, "memo": "水蒸気スポット（横流れ）", "lat": 42.328258, "lng": -83.047219}, {"n": 5, "memo": "水蒸気スポット（めちゃ大量に出ている）", "lat": 42.330745, "lng": -83.04742}, {"n": 6, "memo": "水蒸気スポット", "lat": 42.348889, "lng": -83.058781}, {"n": 7, "memo": "水蒸気スポット", "lat": 42.367445, "lng": -83.075758}, {"n": 8, "memo": "水蒸気スポット", "lat": 42.369461, "lng": -83.074621}, {"n": 9, "memo": "水蒸気スポット", "lat": 42.37097, "lng": -83.075774}, {"n": 10, "memo": "水蒸気スポット（薄め）", "lat": 42.355687, "lng": -83.060789}, {"n": 11, "memo": "水蒸気スポット", "lat": 42.333086, "lng": -83.044162}, {"n": 12, "memo": "水蒸気スポット（左折）", "lat": 42.333968, "lng": -83.044821}, {"n": 13, "memo": "水蒸気スポット（2連続）", "lat": 42.328434, "lng": -83.04531}, {"n": 14, "memo": "水蒸気スポット（真ん中車線）", "lat": 42.328592, "lng": -83.044288}, {"n": 15, "memo": "水蒸気スポット（隣にチェムニーあり）", "lat": 42.338173, "lng": -83.050071}, {"n": 16, "memo": "水蒸気スポット", "lat": 42.328805, "lng": -83.044171}, {"n": 17, "memo": "水蒸気スポット（右車線）", "lat": 42.350717, "lng": -83.059856}, {"n": 18, "memo": "水蒸気スポット（薄め、大きめ）", "lat": 42.329051, "lng": -83.046075}, {"n": 19, "memo": "水蒸気スポット候補（マンホール有り）（出てない？）", "lat": 42.354833, "lng": -83.065999}, {"n": 20, "memo": "水蒸気スポット（デカい）マンホール有り）", "lat": 42.369755, "lng": -83.074941}, {"n": 21, "memo": "水蒸気スポット（一時停止後）", "lat": 42.331704, "lng": -83.044551}, {"n": 22, "memo": "水蒸気スポット", "lat": 42.33151, "lng": -83.044572}, {"n": 23, "memo": "水蒸気スポット", "lat": 42.331717, "lng": -83.044527}, {"n": 24, "memo": "水蒸気スポット", "lat": 42.359126, "lng": -83.067818}, {"n": 25, "memo": "水蒸気スポット（小さめ）（南から北へ）", "lat": 42.357771, "lng": -83.059303}, {"n": 26, "memo": "水蒸気スポット（中央）", "lat": 42.357769, "lng": -83.059085}, {"n": 27, "memo": "水蒸気スポット（右折部分）", "lat": 42.357842, "lng": -83.059046}, {"n": 28, "memo": "水蒸気スポット", "lat": 42.357058, "lng": -83.067237}, {"n": 29, "memo": "水蒸気スポット（送路脇）", "lat": 42.359494, "lng": -83.068751}, {"n": 30, "memo": "水蒸気スポット", "lat": 42.368868, "lng": -83.077421}, {"n": 31, "memo": "(メモなし)", "lat": 42.370371, "lng": -83.073365}, {"n": 32, "memo": "水蒸気スポット", "lat": 42.35795, "lng": -83.064923}, {"n": 33, "memo": "水蒸気スポット", "lat": 42.358828, "lng": -83.059944}, {"n": 34, "memo": "水蒸気スポット", "lat": 42.358655, "lng": -83.056297}, {"n": 35, "memo": "水蒸気スポット", "lat": 42.35795, "lng": -83.058513}, {"n": 36, "memo": "水蒸気スポット", "lat": 42.354785, "lng": -83.057205}, {"n": 37, "memo": "水蒸気スポット", "lat": 42.350023, "lng": -83.05957}, {"n": 38, "memo": "水蒸気スポット", "lat": 42.336845, "lng": -83.043991}, {"n": 39, "memo": "水蒸気スポット", "lat": 42.335995, "lng": -83.044637}, {"n": 40, "memo": "水蒸気スポット", "lat": 42.3353, "lng": -83.045325}, {"n": 41, "memo": "水蒸気スポット", "lat": 42.337915, "lng": -83.043236}, {"n": 42, "memo": "消えてる", "lat": 42.33758, "lng": -83.053494}, {"n": 43, "memo": "(メモなし)", "lat": 42.337098, "lng": -83.049322}];
+const REPS=[{"id": 1, "lat": 42.328434, "lng": -83.04531, "members": [3, 13, 14, 16, 18], "photo": "rep_01.jpg"}, {"id": 2, "lat": 42.357842, "lng": -83.059046, "members": [25, 26, 27, 33, 35], "photo": "rep_02.jpg"}, {"id": 3, "lat": 42.369755, "lng": -83.074941, "members": [8, 9, 20, 31], "photo": "rep_03.jpg"}, {"id": 4, "lat": 42.350023, "lng": -83.05957, "members": [6, 17, 37], "photo": "rep_04.jpg"}, {"id": 5, "lat": 42.331704, "lng": -83.044551, "members": [21, 22, 23], "photo": "rep_05.jpg"}, {"id": 6, "lat": 42.331661, "lng": -83.04829, "members": [1, 5], "photo": "rep_06.jpg"}, {"id": 7, "lat": 42.368868, "lng": -83.077421, "members": [7, 30], "photo": "rep_07.jpg"}, {"id": 8, "lat": 42.333968, "lng": -83.044821, "members": [11, 12], "photo": "rep_08.jpg"}, {"id": 9, "lat": 42.338173, "lng": -83.050071, "members": [15, 43], "photo": "rep_09.jpg"}, {"id": 10, "lat": 42.359494, "lng": -83.068751, "members": [24, 29], "photo": "rep_10.jpg"}, {"id": 11, "lat": 42.35795, "lng": -83.064923, "members": [28, 32], "photo": "rep_11.jpg"}, {"id": 12, "lat": 42.337915, "lng": -83.043236, "members": [38, 41], "photo": "rep_12.jpg"}, {"id": 13, "lat": 42.335995, "lng": -83.044637, "members": [39, 40], "photo": "rep_13.jpg"}, {"id": 14, "lat": 42.327902, "lng": -83.05381, "members": [2], "photo": "rep_14.jpg"}, {"id": 15, "lat": 42.328258, "lng": -83.047219, "members": [4], "photo": "rep_15.jpg"}, {"id": 16, "lat": 42.355687, "lng": -83.060789, "members": [10], "photo": "rep_16.jpg"}, {"id": 17, "lat": 42.354833, "lng": -83.065999, "members": [19], "photo": "rep_17.jpg"}, {"id": 18, "lat": 42.358655, "lng": -83.056297, "members": [34], "photo": "rep_18.jpg"}, {"id": 19, "lat": 42.354785, "lng": -83.057205, "members": [36], "photo": "rep_19.jpg"}, {"id": 20, "lat": 42.33758, "lng": -83.053494, "members": [42], "photo": "rep_20.jpg"}];
+const map=L.map("map",{scrollWheelZoom:false});
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"&copy; OpenStreetMap contributors"}).addTo(map);
+const all=[];
+SPOTS.forEach(s=>{all.push(L.marker([s.lat,s.lng],{icon:L.divIcon({className:"",html:'<div class="dot"></div>',iconSize:[9,9]})}).bindTooltip("#"+s.n+" "+s.memo).addTo(map));});
+REPS.forEach(r=>{
+  const img=r.photo?'<br><img src="rep_photos/'+r.photo+'" style="width:220px;border-radius:6px;margin-top:4px">':'';
+  all.push(L.marker([r.lat,r.lng],{zIndexOffset:1000,icon:L.divIcon({className:"",html:'<div class="pin">'+r.id+'</div>',iconSize:[22,22],iconAnchor:[11,11]})})
+    .bindPopup('<b>代表地点 '+r.id+'</b>（'+r.members.map(n=>"#"+n).join(", ")+'）'+img+'<br><a href="#g'+r.id+'">写真の説明へ</a>').addTo(map));
+});
+const fit=()=>{map.invalidateSize();map.fitBounds(L.featureGroup(all).getBounds().pad(0.05))};
+fit();window.addEventListener("load",()=>setTimeout(fit,100));
+</script>
+</body>
+</html>
